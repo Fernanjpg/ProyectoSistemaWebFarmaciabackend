@@ -42,11 +42,11 @@ public class Usuarios {
         this.rol = rol;
     }
 
-    public Integer getID_usuarios() {
+    public Integer getIdUsuarios() {
         return idUsuarios;
     }
 
-    public void setID_usuarios(Long ID_usuarios) {
+    public void setIdUsuarios(Integer idUsuarios) {
         this.idUsuarios = idUsuarios;
     }
 
@@ -86,7 +86,7 @@ public class Usuarios {
         return password;
     }
 
-    public void setContraseña(String contraseña) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

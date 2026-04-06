@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RepsitorioRoles extends JpaRepository<Roles,Long> {
+public interface RepsitorioRoles extends JpaRepository<Roles,Integer> {
 }

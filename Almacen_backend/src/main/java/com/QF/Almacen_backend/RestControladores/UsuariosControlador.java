@@ -8,36 +8,53 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 // esto es un restcontroller
 @RestController
-//
 @CrossOrigin(origins = "http://localhost:5173")
-//
-@RequestMapping("api/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuariosControlador {
 
     @Autowired
     private RepsitorioUsuarios repsitorioUsuarios;
-    @PostMapping ("/login")
-    public ResponseEntity<?>login(@RequestBody Usuarios datoslogin)  {
-        return repsitorioUsuarios.findByUsername(datoslogin.getUsername()).map( usuarioencotrado -> {
-            //una condicion:
-            if (usuarioencotrado.getPassword().equals(datoslogin.getPassword())) {
 
-                // 3. ¡Éxito! Limpiamos la clave por seguridad y enviamos el objeto
-                usuarioencotrado.setContraseña(null);
-                return ResponseEntity.ok(usuarioencotrado);
+    @PostMapping("/login")
+        public ResponseEntity<?> login(@RequestBody Usuarios loginData) {
+            return repsitorioUsuarios.findByUsername(loginData.getUsername())
+                    .map(user -> {
+                        if (user.getPassword().equals(loginData.getPassword())) {
+                            user.setPassword(null); // Seguridad
+                            return ResponseEntity.ok(user);
+                        }
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Clave incorrecta");
+                    }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no existe"));
+        }
 
-            } else {
-                // 4. Contraseña mal
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body("Contraseña incorrecta para QF");
-            }
 
-        } )
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("El usuario no existe en el sistema"));
-    }
+        @GetMapping("/Listar")
+       public List<Usuarios> listarUsuarios() {
+          return repsitorioUsuarios.findAll();
+
 
     }
+
+      @PostMapping("/Guardar")
+         public Usuarios Guardar (@RequestBody Usuarios user) {
+            return repsitorioUsuarios.save(user);
+       }
+    @DeleteMapping("/Eliminar/{id}")
+    public void eliminar(@PathVariable Integer id) {
+        repsitorioUsuarios.deleteById(id);
+    }
+
+
+
+
+
+
+
+    }
+
+
 
