@@ -24,10 +24,10 @@ public class Tipoproductos {
         this.nombre = nombre;
     }
 
-    public long getId_tproductos() {
+    public long getidtproductos() {
         return idtproductos;
     }
-    public void setId_tproductos(Integer id_tproductos) {
+    public void setidtproductos(Integer id_tproductos) {
         this.idtproductos = id_tproductos;
     }
     public String getNombre() {
