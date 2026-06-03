@@ -1,7 +1,6 @@
 package com.QF.Almacen_backend.RestControladores;
 
 
-import com.QF.Almacen_backend.Entidades.Productos;
 import com.QF.Almacen_backend.Entidades.Tipoproductos;
 import com.QF.Almacen_backend.Repositorios.RepsitorioTipoProductos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/tipoproductos")
 @CrossOrigin(origins = "http://localhost:5173")
 
-public class TipoProductosControlador {
+public class TipoProductosController {
     @Autowired
     private RepsitorioTipoProductos repsitorioTipoProductos;
     @GetMapping("/Listar")

@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/roles")
 @CrossOrigin(origins = "http://localhost:5173")
 
-public class RolesControlador {
+public class RolesController {
     @Autowired
     private RepsitorioRoles repsitorioRoles;
     @GetMapping("/Listar")

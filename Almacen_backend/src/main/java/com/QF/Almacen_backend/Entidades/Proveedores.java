@@ -17,6 +17,7 @@ public class Proveedores {
     @Column(name = "contacto", unique = true,nullable = false,length = 50)
     private String Contacto;
 
+
     public Proveedores() {
     }
 

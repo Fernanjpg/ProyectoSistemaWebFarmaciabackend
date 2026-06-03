@@ -25,7 +25,7 @@ public class Usuarios {
     @Column(name = "password", nullable = false,length = 250)
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_roles")
     private Roles rol;
 
