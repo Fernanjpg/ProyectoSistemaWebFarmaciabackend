@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/geolocalizacion")
+@RequestMapping("/api/geolocalizacion")
 @CrossOrigin(origins = "http://localhost:5173")
 public class GeolocalizacionController {
 

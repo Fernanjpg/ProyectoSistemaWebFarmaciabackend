@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Almacen_backend.iml" filepath="$PROJECT_DIR$/.idea/Almacen_backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Almacen_backend/Almacen_backend.iml" filepath="$PROJECT_DIR$/Almacen_backend/Almacen_backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ProyectoSistemaWebFarmaciabackend.iml" filepath="$PROJECT_DIR$/.idea/ProyectoSistemaWebFarmaciabackend.iml" />
     </modules>
   </component>
 </project>

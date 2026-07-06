@@ -2,9 +2,15 @@ package com.QF.Almacen_backend.Entidades;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "producto")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Productos {
     @Id
@@ -25,54 +31,13 @@ public class Productos {
     @JoinColumn(name = "Tproductos_id")
     private Tipoproductos tipoProductos;
 
-    public Productos() {
-    }
+    @Column(name = "stock_minimo")
+    private Integer stockMinimo;
 
-    public Productos(Integer idproducto, String nombre, Integer stock, Proveedores proveedores, Tipoproductos tipoProductos) {
-        this.idproducto = idproducto;
-        this.nombre = nombre;
-        this.stock = stock;
-        this.proveedores = proveedores;
-        this.tipoProductos = tipoProductos;
-    }
+    // RF-20: Unidad de medida del producto (KG, L, UNIDADES, etc.)
+    @Column(name = "unidad_medida", length = 20)
+    private String unidadMedida;
 
-    public long getIdproducto() {
-        return idproducto;
-    }
 
-    public void setIdproducto(Integer idproducto) {
-        this.idproducto = idproducto;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public Proveedores getProveedores() {
-        return proveedores;
-    }
-
-    public void setProveedores(Proveedores proveedores) {
-        this.proveedores = proveedores;
-    }
-
-    public Tipoproductos getTipoProductos() {
-        return tipoProductos;
-    }
-
-    public void setTipoProductos(Tipoproductos tipoProductos) {
-        this.tipoProductos = tipoProductos;
-    }
 }

@@ -3,6 +3,7 @@ package com.QF.Almacen_backend.RestControladores;
 import com.QF.Almacen_backend.Dto.MovimientoDTO;
 import com.QF.Almacen_backend.Entidades.Movimientos;
 import com.QF.Almacen_backend.Repositorios.RepsitorioMovimientos;
+import com.QF.Almacen_backend.Servicios.MovimientosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,40 +16,36 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/movimientos")
 @CrossOrigin(origins = "http://localhost:5173")
 public class MovimientosControlador {
+    private final MovimientosService movimientosService;
+    private final RepsitorioMovimientos repsitorioMovimientos;
 
-    @Autowired
-    private RepsitorioMovimientos repsitorioMovimientos;
-
-    // GET - Listar todos los movimientos como DTO
+    public MovimientosControlador(MovimientosService movimientosService, RepsitorioMovimientos repsitorioMovimientos) {
+        this.movimientosService = movimientosService;
+        this.repsitorioMovimientos = repsitorioMovimientos;
+    }
+    // GET - Listar todos los movimientos como DTO (RF-18)
     @GetMapping("/Listar")
     public List<MovimientoDTO> listar() {
-        return repsitorioMovimientos.findAll()
-                .stream()
-                .map(MovimientoDTO::new)
-                .collect(Collectors.toList());
+        return movimientosService.listar();
     }
 
-    // GET - Filtrar por tipo: ENTRADA, SALIDA, TRANSFERENCIA
+    // GET - Filtrar por tipo: ENTRADA, SALIDA, TRANSFERENCIA, MERMA
     @GetMapping("/ListarPorTipo/{tipo}")
     public ResponseEntity<?> listarPorTipo(@PathVariable String tipo) {
         try {
-            Movimientos.TipoMovimiento tipoEnum = Movimientos.TipoMovimiento.valueOf(tipo.toUpperCase());
-
-            List<MovimientoDTO> resultado = repsitorioMovimientos.findAll()
-                    .stream()
-                    .filter(m -> m.getTipo() == tipoEnum)
-                    .map(MovimientoDTO::new)
-                    .collect(Collectors.toList());
-
-            return ResponseEntity.ok(resultado);
-
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Tipo inválido. Use: ENTRADA, SALIDA o TRANSFERENCIA");
+            return ResponseEntity.ok(movimientosService.listarPorTipo(tipo));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    // POST - Guardar un nuevo movimiento
+    // GET - Historial auditable de un producto específico (RF-18)
+    @GetMapping("/ListarPorProducto/{idProducto}")
+    public ResponseEntity<List<MovimientoDTO>> listarPorProducto(@PathVariable Integer idProducto) {
+        return ResponseEntity.ok(movimientosService.listarPorProducto(idProducto));
+    }
+
+    // POST - Guardar un nuevo movimiento manual (ej. transferencias entre almacenes)
     @PostMapping("/Guardar")
     public ResponseEntity<?> guardar(@RequestBody Movimientos movimiento) {
         try {
@@ -70,4 +67,5 @@ public class MovimientosControlador {
         repsitorioMovimientos.deleteById(id);
         return ResponseEntity.ok("Movimiento eliminado correctamente");
     }
+
 }

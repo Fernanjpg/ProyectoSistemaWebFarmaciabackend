@@ -40,7 +40,7 @@ public class Movimientos {
 
     // Enum interno o en archivo separado
     public enum TipoMovimiento {
-        ENTRADA, SALIDA, TRANSFERENCIA
+        ENTRADA, SALIDA, TRANSFERENCIA , MERMA
     }
 
     // Constructores, Getters y Setters...
